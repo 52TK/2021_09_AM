@@ -20,11 +20,18 @@ public class HomePrintDanServlet extends HttpServlet {
 			inputedDan = "1";
 		}
 		
+		String inputedlimit = request.getParameter("limit");
+		
+		if(inputedlimit == null) {
+			inputedlimit = "9";
+		}
+				
 		int dan = Integer.parseInt(inputedDan);
+		int limit = Integer.parseInt(inputedlimit);
 		
 		response.getWriter().append(String.format("%d´Ü<br>", dan));
 		
-		for (int i = 1; i <= 9; i++) {
+		for (int i = 1; i <= limit; i++) {
 			response.getWriter().append(String.format("%d * %d = %d<br>", dan, i, dan * i));
 		}
 	}
