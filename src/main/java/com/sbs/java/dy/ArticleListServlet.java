@@ -24,19 +24,19 @@ public class ArticleListServlet extends HttpServlet {
 		String user = "root";
 		String password = "0910";
 
-		// Ä¿³ØÅÍ µå¶óÀÌ¹ö È°¼ºÈ­
+		// Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ È°ï¿½ï¿½È­
 		String driverName = "com.mysql.cj.jdbc.Driver";
 
 		try {
 			Class.forName(driverName);
 			
 		} catch (ClassNotFoundException e) {
-			System.err.printf("[ClassNotFoundException ¿¹¿Ü, %s]\n", e.getMessage());
-			response.getWriter().append("DB µå¶óÀÌ¹ö Å¬·¡½º ·Îµù ½ÇÆÐ");
+			System.err.printf("[ClassNotFoundException ï¿½ï¿½ï¿½ï¿½, %s]\n", e.getMessage());
+			response.getWriter().append("DB ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½");
 			return;
 		}
 
-		// DB ¿¬°á
+		// DB ï¿½ï¿½ï¿½ï¿½
 		Connection conn = null;
 
 		try {
@@ -44,10 +44,19 @@ public class ArticleListServlet extends HttpServlet {
 			
 			DBUtil dbUtil = new DBUtil(request, response);
 
-			String sql = "SELECT * FROM article";
+			String sql = "SELECT * FROM article ORDER BY id DESC";
 			List<Map<String, Object>> articleRows = dbUtil.selectRows(conn, sql);
+			
+			for(int i = 0; i < articleRows.size(); i++) {
+				Map<String, Object> articleRow = articleRows.get(i);
+				
+				int id = (int)articleRow.get("id");
+				String title = (String)articleRow.get("title");
+				
+				response.getWriter().append(String.format("<div>%d, %s</div>", id, title));
+				
+			}
 
-			response.getWriter().append(articleRows.toString());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
