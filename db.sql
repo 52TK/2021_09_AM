@@ -23,13 +23,8 @@ title = '제목2',
 `body` = '내용2';
 
 INSERT INTO article 
-SET regDate = NOW(),
+SET regDate = NOW(), 
 title = '제목3',
 `body` = '내용3';
-
-INSERT INTO article 
-SET regDate = NOW(),
-title = CONCAT('제목4',RAND()),
-`body` = CONCAT('내용4',RAND())
 
 SELECT * FROM article;
