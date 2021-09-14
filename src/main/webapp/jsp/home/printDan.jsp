@@ -1,21 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%
 int dan = Integer.parseInt(request.getParameter("dan"));
 int limit = Integer.parseInt(request.getParameter("limit"));
 String color = request.getParameter("color");
-%>       
+%>    
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>구구단 출력</title>
+<meta charset="UTF-8">
+<title>援ш뎄�떒 異쒕젰</title>
 </head>
 <body>
-	<div style="color:<%=color%>;">== <%=dan%>단 ==</div>
-	
-	<%for (int i = 1; i <= 9; i++) {%>
-	<div style="color:<%=color%>;"><%=dan %> * <%=i %> = <%=dan * i %></div>
+	<div style="color:<%=color%>;">== <%=dan%>�떒 ==</div>
+	<%for (int i = 1; i <= limit; i++){%>
+	<div style="color:<%=color%>;"><%=dan %> * <%=i %> = <%=dan * i%></div>
 	<%} %>
 </body>
-</html>
+</html> 
