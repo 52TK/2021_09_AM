@@ -1,4 +1,4 @@
-package com.sbs.java.dy;
+package com.sbs.java.dy.util;
 
 import java.io.IOException;
 
@@ -58,7 +58,7 @@ public class Util {
 	public static void printEx(String errName, HttpServletResponse resp, Exception e) {
 		try {
 			resp.getWriter()
-					.append("<h1 style='color:red; font-weight:bold; text-align:left;'>[¿¡·¯ : " + errName + "]</h1>");
+					.append("<h1 style='color:red; font-weight:bold; text-align:left;'>[ï¿½ï¿½ï¿½ï¿½ : " + errName + "]</h1>");
 
 			resp.getWriter().append("<pre style='text-align:left; font-weight:bold; font-size:1.3rem;'>");
 			e.printStackTrace(resp.getWriter());

@@ -1,10 +1,9 @@
-package com.sbs.java.dy;
+package com.sbs.java.dy.servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -12,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.sbs.java.dy.util.DBUtil;
 
 @WebServlet("/article/detail")
 public class ArticleDetailServlet extends HttpServlet {
@@ -40,17 +41,16 @@ public class ArticleDetailServlet extends HttpServlet {
 
 		try {
 			conn = DriverManager.getConnection(url, user, password);
-			DBUtil dbUtil = new DBUtil(request, response);
-
+		
 			int id = Integer.parseInt(request.getParameter("id"));
 
 			String sql = String.format("SELECT * FROM article WHERE id = %d", id);
-			Map<String, Object> articleRow = dbUtil.selectRow(conn, sql);
+			Map<String, Object> articleRow = DBUtil.selectRow(conn, sql);
 
 			response.getWriter().append(articleRow.toString());
 
 			request.setAttribute("articleRow", articleRow);
-			request.getRequestDispatcher("/jsp/home/detail.jsp").forward(request, response);
+			request.getRequestDispatcher("/jsp/article/detail.jsp").forward(request, response);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
