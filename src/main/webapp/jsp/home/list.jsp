@@ -16,11 +16,11 @@ List<Map<String, Object>> articleRows = (List<Map<String, Object>>) request.getA
 
 	<ul>
 		<li><%=(int) articleRows.get(0).get("id")%>번,<%=articleRows.get(0).get("regDate")%>,
-			<%=(String) articleRows.get(0).get("title")%></li>
+			<%=(String) articleRows.get(0).get("title")%>,<%=(String) articleRows.get(0).get("body")%></li>
 		<li><%=(int) articleRows.get(1).get("id")%>번,<%=articleRows.get(1).get("regDate")%>,
-			<%=(String) articleRows.get(1).get("title")%></li>
+			<%=(String) articleRows.get(1).get("title")%>,<%=(String) articleRows.get(1).get("body")%></li>
 		<li><%=(int) articleRows.get(2).get("id")%>번,<%=articleRows.get(2).get("regDate")%>,
-			<%=(String) articleRows.get(2).get("title")%></li>
+			<%=(String) articleRows.get(2).get("title")%>,<%=(String) articleRows.get(2).get("body")%></li>
 	</ul>
 
 	<h1>게시물 리스트 v2</h1>
@@ -31,7 +31,7 @@ List<Map<String, Object>> articleRows = (List<Map<String, Object>>) request.getA
 		%>
 
 		<li><%=(int) articleRows.get(i).get("id")%>번,<%=articleRows.get(i).get("regDate")%>,
-			<%=(String) articleRows.get(i).get("title")%></li>
+			<%=(String) articleRows.get(i).get("title")%>,<%=(String) articleRows.get(i).get("body")%></li>
 
 		<%
 		}
@@ -47,7 +47,7 @@ List<Map<String, Object>> articleRows = (List<Map<String, Object>>) request.getA
 		%>
 
 		<li><%=(int) articleRow.get("id")%>번,<%=articleRow.get("regDate")%>,
-			<%=(String) articleRow.get("title")%></li>
+			<%=(String) articleRow.get("title")%>,<%=(String) articleRow.get("body")%></li>
 
 		<%
 		}
@@ -64,7 +64,7 @@ List<Map<String, Object>> articleRows = (List<Map<String, Object>>) request.getA
 		%>
 
 		<li><%=(int) articleRow.get("id")%>번,<%=articleRow.get("regDate")%>,
-			<%=(String) articleRow.get("title")%></li>
+			<%=(String) articleRow.get("title")%>,<%=(String) articleRow.get("body")%></li>
 
 		<%
 		}
@@ -79,11 +79,13 @@ List<Map<String, Object>> articleRows = (List<Map<String, Object>>) request.getA
 		%>
 
 		<li><%=(int) articleRow.get("id")%>번,<%=articleRow.get("regDate")%>,
-			<%=(String) articleRow.get("title")%></li>
+			<%=(String) articleRow.get("title")%>,<%=(String) articleRow.get("body")%></li>
 
 		<%
 		}
 		%>
 	</ul>
+	
+	
 </body>
 </html> 
