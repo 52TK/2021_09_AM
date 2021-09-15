@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/article/list")
-public class ArticleListServlet extends HttpServlet {
+@WebServlet("/article/detail")
+public class ArticleDetailServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -24,34 +24,33 @@ public class ArticleListServlet extends HttpServlet {
 		String user = "root";
 		String password = "0910";
 
-		// Ŀ���� ����̹� Ȱ��ȭ
+		// 커넥터 드라이버 활성화
 		String driverName = "com.mysql.cj.jdbc.Driver";
 
 		try {
 			Class.forName(driverName);
-			
 		} catch (ClassNotFoundException e) {
-			System.err.printf("[ClassNotFoundException ����, %s]\n", e.getMessage());
-			response.getWriter().append("DB ����̹� Ŭ���� �ε� ����");
+			System.err.printf("[ClassNotFoundException 예외, %s]\n", e.getMessage());
+			response.getWriter().append("DB 드라이버 클래스 로딩 실패");
 			return;
 		}
 
-		// DB ����
+		// DB 연결
 		Connection conn = null;
 
 		try {
 			conn = DriverManager.getConnection(url, user, password);
-			
 			DBUtil dbUtil = new DBUtil(request, response);
 
-			String sql = "SELECT * FROM article ORDER BY id DESC";
-			List<Map<String, Object>> articleRows = dbUtil.selectRows(conn, sql);
-			
-			response.getWriter().append(articleRows.toString());
+			int id = Integer.parseInt(request.getParameter("id"));
 
-			request.setAttribute("articleRows", articleRows);
-			request.getRequestDispatcher("/jsp/home/list.jsp").forward(request, response);
+			String sql = String.format("SELECT * FROM article WHERE id = %d", id);
+			Map<String, Object> articleRow = dbUtil.selectRow(conn, sql);
 
+			response.getWriter().append(articleRow.toString());
+
+			request.setAttribute("articleRow", articleRow);
+			request.getRequestDispatcher("/jsp/home/detail.jsp").forward(request, response);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
