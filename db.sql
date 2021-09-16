@@ -23,7 +23,7 @@ title = '제목2',
 `body` = '내용2';
 
 INSERT INTO article 
-SET regDate = NOW(), 
+SET regDate = NOW(),
 title = '제목3',
 `body` = '내용3';
 
