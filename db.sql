@@ -27,4 +27,15 @@ SET regDate = NOW(),
 title = '제목3',
 `body` = '내용3';
 
+INSERT INTO article 
+SET regDate = NOW(),
+title = CONCAT('제목__',RAND()),
+`body` = CONCAT('내용__',RAND());
+
 SELECT * FROM article;
+
+SELECT * FROM article ORDER BY id DESC LIMIT 0, 20
+
+SELECT COUNT(*) FROM article;
+
+# articleRows.get(1).get("body")
