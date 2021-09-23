@@ -41,4 +41,7 @@ SELECT COUNT(*) FROM article;
 DELETE FROM article
 WHERE id > 200;
 
+DELETE FROM article
+WHERE id IN (1, 2);
+
 # articleRows.get(1).get("body")

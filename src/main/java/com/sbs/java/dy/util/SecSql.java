@@ -11,6 +11,7 @@ public class SecSql {
 	private StringBuilder sqlBuilder;
 	private List<Object> datas;
 
+	//브라우저에 메세지 노출하는 기능
 	@Override
 	public String toString() {
 		return String.format("[SQL = %s, data = %s", getFormat(), datas);
