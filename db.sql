@@ -38,4 +38,7 @@ SELECT * FROM article ORDER BY id DESC LIMIT 0, 20
 
 SELECT COUNT(*) FROM article;
 
+DELETE FROM article
+WHERE id > 200;
+
 # articleRows.get(1).get("body")
