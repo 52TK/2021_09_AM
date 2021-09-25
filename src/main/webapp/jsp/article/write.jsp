@@ -25,7 +25,7 @@
 		<div>
 			<!-- <input type="submit" value="작성" /> -->
 			<button type="submit">작성</button>
-			<a href="list">리스트로 돌아가기</a>
+			<a href="list">리스트</a>
 		</div>
 	</form>
 </body>

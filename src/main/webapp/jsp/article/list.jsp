@@ -14,14 +14,14 @@ int totalpage = (int) request.getAttribute("totalpage");
 <title>게시물 리스트</title>
 </head>
 <body>
-	
+
 	<h1>게시물 리스트</h1>
-	
+
 	<div>
 		<a href="write">게시물 작성</a>
 	</div>
-	
-		<table border="1">
+
+	<table border="1">
 		<!--  <colgroup>
 			<col width="100" />
 			<col width="200" />
@@ -32,8 +32,8 @@ int totalpage = (int) request.getAttribute("totalpage");
 				<th>번호</th>
 				<th>날짜</th>
 				<th>제목</th>
-				<th>삭제</th>
 				<th>수정</th>
+				<th>삭제</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -45,32 +45,32 @@ int totalpage = (int) request.getAttribute("totalpage");
 				<td><%=articleRow.get("id")%></td>
 				<td><%=articleRow.get("regDate")%></td>
 				<td><a href="detail?id=<%=articleRow.get("id")%>"><%=articleRow.get("title")%></a></td>
-				<td><a href="doDelete?id=<%=articleRow.get("id")%>">삭제</a></td>
 				<td><a href="modify?id=<%=articleRow.get("id")%>">수정</a></td>
+				<td><a href="doDelete?id=<%=articleRow.get("id")%>">삭제</a></td>
 			</tr>
 		</tbody>
 		<%
 		}
 		%>
-		</table>
-		<style type ="text/css">
-.page > a.red {
-	color:red;
+	</table>
+	<style type="text/css">
+.page>a.red {
+	color: red;
 }
 </style>
-		
-		<div class = "page">
-			<%
+
+	<div class="page">
+		<%
 			for(int i = 1; i <= totalpage; i++) {
 			%>
-			
-			<a class="<%=cPage == i ? "red" : ""%>"href="list?page=<%=i%>"><%=i%></a>
-				
-			<% 
+
+		<a class="<%=cPage == i ? "red" : ""%>" href="list?page=<%=i%>"><%=i%></a>
+
+		<% 
 			}
 			%>
-			
-		</div>
-		
+
+	</div>
+
 </body>
-</html> 
+</html>
