@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sbs.java.dy.Config;
 import com.sbs.java.dy.util.DBUtil;
 import com.sbs.java.dy.util.SecSql;
 
@@ -23,12 +24,8 @@ public class ArticleDetailServlet extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
 
-		String url = "jdbc:mysql://localhost:3306/dy?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeBehavior=convertToNull";
-		String user = "root";
-		String password = "0910";
-
 		// 커넥터 드라이버 활성화
-		String driverName = "com.mysql.cj.jdbc.Driver";
+		String driverName = Config.getDBDriverClassName();
 
 		try {
 			Class.forName(driverName);
@@ -42,7 +39,7 @@ public class ArticleDetailServlet extends HttpServlet {
 		Connection con = null;
 
 		try {
-			con = DriverManager.getConnection(url, user, password);
+			con = DriverManager.getConnection(Config.getDBUrl(), Config.getDBId(), Config.getDBPw());
 		
 			int id = Integer.parseInt(request.getParameter("id"));
 
