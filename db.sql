@@ -48,6 +48,8 @@ FROM article;
 
 SELECT * FROM article;
 
+SELECT * FROM `member`;
+
 SELECT * FROM article ORDER BY id DESC LIMIT 0, 20
 
 SELECT COUNT(*) FROM article;
