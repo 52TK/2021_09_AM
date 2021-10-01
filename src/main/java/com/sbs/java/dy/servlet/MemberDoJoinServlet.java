@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sbs.java.dy.Config;
+import com.sbs.java.dy.exception.SQLErrorException;
 import com.sbs.java.dy.util.DBUtil;
 import com.sbs.java.dy.util.SecSql;
 
@@ -68,6 +69,8 @@ public class MemberDoJoinServlet extends HttpServlet {
 					String.format("<script> alert('%d번 회원이 가입되었습니다.'); location.replace('../home/main'); </script>", id));
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (SQLErrorException e) {
+			e.getOrigin().printStackTrace();	
 		} finally {
 			if (con != null) {
 				try {

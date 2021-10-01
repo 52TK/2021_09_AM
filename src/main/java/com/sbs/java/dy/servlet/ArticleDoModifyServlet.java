@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sbs.java.dy.Config;
+import com.sbs.java.dy.exception.SQLErrorException;
 import com.sbs.java.dy.util.DBUtil;
 import com.sbs.java.dy.util.SecSql;
 
@@ -55,6 +56,8 @@ public class ArticleDoModifyServlet extends HttpServlet {
 					String.format("<script> alert('%d번 글이 수정되었습니다.'); location.replace('detail?id=%d'); </script>", id, id));
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (SQLErrorException e) {
+			e.getOrigin().printStackTrace();
 		} finally {
 			if (con != null) {
 				try {

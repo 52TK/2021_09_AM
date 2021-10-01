@@ -14,10 +14,10 @@ CREATE TABLE article(
 #회원 테이블 생성
 CREATE TABLE `member` (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    regDate DATETIME NOT NULL,
-    loginId CHAR(100) NOT NULL UNIQUE,
-    loginPw CHAR(100) NOT NULL,
-    `name` CHAR(100) NOT NULL
+  regDate DATETIME NOT NULL,
+  loginId CHAR(100) NOT NULL UNIQUE,
+  loginPw CHAR(100) NOT NULL,
+  `name` CHAR(100) NOT NULL
 );
 
 # 게시물 데이터 추가 
@@ -40,6 +40,16 @@ INSERT INTO article
 SET regDate = NOW(), 
 title = CONCAT('제목__',RAND()), 
 `body` = CONCAT('내용__',RAND());
+
+# 회원 데이터 추가 
+INSERT INTO `member` 
+SET regDate = NOW(),
+loginId = 'test1',
+loginPw = SHA2('test1',256),
+`name` = '홍길동';
+
+SELECT SHA2('test1',256)
+
 
 #글 갯수 2배
 INSERT INTO article (regDate,title,`body`)
@@ -64,3 +74,12 @@ DELETE FROM article
 WHERE id IN (434, 433);
 
  # articleRows.get(1).get("body")
+ 
+ 
+				SELECT COUNT(*) > 0
+				FROM `member`
+				WHERE loginId = 'ffff';
+
+
+
+

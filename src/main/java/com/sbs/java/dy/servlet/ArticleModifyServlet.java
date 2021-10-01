@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sbs.java.dy.Config;
+import com.sbs.java.dy.exception.SQLErrorException;
 import com.sbs.java.dy.util.DBUtil;
 import com.sbs.java.dy.util.SecSql;
 
@@ -54,6 +55,8 @@ public class ArticleModifyServlet extends HttpServlet {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (SQLErrorException e) {
+			e.getOrigin().printStackTrace();
 		} finally {
 			if (con != null) {
 				try {
