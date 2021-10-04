@@ -16,8 +16,8 @@ import com.sbs.java.dy.exception.SQLErrorException;
 import com.sbs.java.dy.util.DBUtil;
 import com.sbs.java.dy.util.SecSql;
 
-@WebServlet("/member/doJoin")
-public class MemberDoJoinServlet extends HttpServlet {
+@WebServlet("/member/doLogin")
+public class MemberDoLoginServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -44,29 +44,20 @@ public class MemberDoJoinServlet extends HttpServlet {
 			con = DriverManager.getConnection(Config.getDBUrl(), Config.getDBId(), Config.getDBPw());
 			String loginId = request.getParameter("loginId");
 			String loginPw = request.getParameter("loginPw");
-			String name = request.getParameter("name");
 			
 			SecSql sql = SecSql.from("SELECT COUNT(*) AS cnt ");
 			sql.append("FROM `member`");
 			sql.append("WHERE loginId = ?", loginId);
 
-			boolean isJoinAvailableLoginId = DBUtil.selectRowIntValue(con, sql) == 0;
-
-			if(isJoinAvailableLoginId == false) {
-				response.getWriter().append(
-						String.format("<script> alert('로그인 되었습니다.'); location.replace('../home/main'); </script>", loginId));
-				return;
-			}
-
+			
 			sql = SecSql.from("INSERT INTO member");
 			sql.append("SET regDate = NOW()");
 			sql.append(", loginId = ?", loginId);
 			sql.append(", loginPw = ?", loginPw);
-			sql.append(", `name` = ?", name);
 
 			int id = DBUtil.insert(con, sql);
 			response.getWriter().append(
-					String.format("<script> alert('%d번 회원이 가입되었습니다.'); location.replace('../home/main'); </script>", id));
+					String.format("<script> alert('로그인 되었습니다.'); location.replace('../home/main'); </script>", id));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (SQLErrorException e) {
