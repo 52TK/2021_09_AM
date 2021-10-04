@@ -46,8 +46,8 @@ public class MemberDoLoginServlet extends HttpServlet {
 			con = DriverManager.getConnection(Config.getDBUrl(), Config.getDBId(), Config.getDBPw());
 			String loginId = request.getParameter("loginId");
 			String loginPw = request.getParameter("loginPw");
-			
-			SecSql sql = SecSql.from("SELECT COUNT *");
+
+			SecSql sql = SecSql.from("SELECT *");
 			sql.append("FROM `member`");
 			sql.append("WHERE loginId = ?", loginId);
 
@@ -55,7 +55,7 @@ public class MemberDoLoginServlet extends HttpServlet {
 
 			if(memberRow.isEmpty()) {
 				response.getWriter().append(
-						String.format("<script> alert('%s (은)는 존재하지 않는 회원입니다'); history.back(); </script>", loginId));
+						String.format("<script> alert('%s (은)는 존재하지 않는 회원입니다.'); history.back(); </script>", loginId));
 				return;
 			}
 
@@ -64,20 +64,19 @@ public class MemberDoLoginServlet extends HttpServlet {
 						String.format("<script> alert('비밀번호가 일치하지 않습니다.'); history.back(); </script>", loginId));
 				return;
 			}
-			
-			
-			HttpSession session = request.getSession();
+
+			HttpSession session =  request.getSession();
 			session.setAttribute("loginedMemberId", memberRow.get("id"));
-			
+
 			response.getWriter().append(
-					String.format("<script> alert('로그인 성공!'); location.replace('..home/main'); </script>", loginId));
+					String.format("<script> alert('로그인 성공!'); location.replace('../home/main'); </script>", loginId));
 			return;
-			
-							
+
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (SQLErrorException e) {
-			e.getOrigin().printStackTrace();	
+			e.getOrigin().printStackTrace();
 		} finally {
 			if (con != null) {
 				try {
