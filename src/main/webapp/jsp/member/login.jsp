@@ -32,7 +32,7 @@
 				form.loginPw.focus();
 				return;
 			}
-			form.sumbit();
+			form.submit();
 			JoinForm__submitDone = true;
 		}
 	</script>
