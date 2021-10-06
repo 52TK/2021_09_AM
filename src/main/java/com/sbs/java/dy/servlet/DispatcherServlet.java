@@ -20,7 +20,7 @@ import com.sbs.java.dy.util.DBUtil;
 import com.sbs.java.dy.util.SecSql;
 
 @WebServlet("/s/*")
-public class ArticleDetailServlet extends HttpServlet {
+public class DispatcherServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
