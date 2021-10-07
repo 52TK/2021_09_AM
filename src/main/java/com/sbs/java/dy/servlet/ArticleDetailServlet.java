@@ -1,11 +1,9 @@
 package com.sbs.java.dy.servlet;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,23 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.sbs.java.dy.Config;
-import com.sbs.java.dy.controller.ArticleController;
 import com.sbs.java.dy.exception.SQLErrorException;
 import com.sbs.java.dy.util.DBUtil;
 import com.sbs.java.dy.util.SecSql;
-
-@WebServlet("/s/*")
+@WebServlet("/article/detail")
 public class ArticleDetailServlet extends HttpServlet {
-
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-
 		// 커넥터 드라이버 활성화
 		String driverName = Config.getDBDriverClassName();
-
 		try {
 			Class.forName(driverName);
 		} catch (ClassNotFoundException e) {
@@ -38,14 +30,12 @@ public class ArticleDetailServlet extends HttpServlet {
 			response.getWriter().append("DB 드라이버 클래스 로딩 실패");
 			return;
 		}
-
 		// DB 연결
 		Connection con = null;
 
 		try {
 			con = DriverManager.getConnection(Config.getDBUrl(), Config.getDBId(), Config.getDBPw());
 
-			//모든 요청에 들어가기 전에 무조건 해줘야 하는 일
 			HttpSession session = request.getSession();
 
 			boolean isLogined = false;
@@ -64,27 +54,15 @@ public class ArticleDetailServlet extends HttpServlet {
 			request.setAttribute("isLogined", isLogined);
 			request.setAttribute("loginedMemberId", loginedMemberId);
 			request.setAttribute("loginedMemberRow", loginedMemberRow);
-			//모든 요청에 들어가기 전에 무조건 해줘야 하는 일
 
-			String requestUri = request.getRequestURI();
-			String[] requestUriBits = requestUri.split("/");
+			int id = Integer.parseInt(request.getParameter("id"));
 
-			if (requestUriBits.length < 5) {
-				response.getWriter().append("올바른 요청이 아닙니다.");
-				return;
-			}
-
-			String controllerName = requestUriBits[3];
-			String actionMethodName = requestUriBits[4];
-
-			if (controllerName.equals("article")) {
-				ArticleController controller = new ArticleController(request, response, con);
-
-				if (actionMethodName.equals("list")) {
-					controller.actionList();
-				}
-			}
-
+			SecSql sql = SecSql.from("SELECT *");
+			sql.append("FROM article");
+			sql.append("WHERE id = ?", id);
+			Map<String, Object> articleRow = DBUtil.selectRow(con, sql);
+			request.setAttribute("articleRow", articleRow);
+			request.getRequestDispatcher("/jsp/article/detail.jsp").forward(request, response);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (SQLErrorException e) {
@@ -99,10 +77,9 @@ public class ArticleDetailServlet extends HttpServlet {
 			}
 		}
 	}
-
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-} 
+}
