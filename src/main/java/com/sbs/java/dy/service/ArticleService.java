@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 import com.sbs.java.dy.dao.ArticleDao;
+import com.sbs.java.dy.dto.Article;
 
 public class ArticleService {
 	private Connection con;
@@ -24,11 +25,11 @@ public class ArticleService {
 
 		return totalpage;
 	}
-	public List<Map<String, Object>> getForPrintArticleRows(int page) {
+	public List<Article> getForPrintArticles(int page) {
 		int itemsInAPage = getItemsInAPage();
 		int limitFrom = (page - 1) * itemsInAPage;
-		List<Map<String, Object>> articleRows = articleDao.getArticleRows(limitFrom, itemsInAPage);
+		List<Article> articles = articleDao.getArticles(limitFrom, itemsInAPage);
 
-		return articleRows;
+		return articles;
 	}
 }
