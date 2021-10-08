@@ -1,7 +1,6 @@
 package com.sbs.java.dy.service;
 import java.sql.Connection;
 import java.util.List;
-import java.util.Map;
 import com.sbs.java.dy.dao.ArticleDao;
 import com.sbs.java.dy.dto.Article;
 
